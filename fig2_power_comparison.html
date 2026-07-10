@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>독도 전력 구성 비교</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans KR',sans-serif;background:#fff;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:32px}
+.wrap{width:600px}
+.grid{display:grid;grid-template-columns:1fr 60px 1fr;gap:12px;align-items:center}
+.title{font-size:13px;font-weight:500;text-align:center;color:#444441;margin-bottom:8px}
+.chart-wrap{position:relative;height:200px}
+.center-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;text-align:center}
+.center-label small{font-size:11px;color:#888780;display:block}
+.center-label strong{font-size:24px;font-weight:500;display:block;line-height:1}
+.legend{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:8px}
+.leg{display:flex;align-items:center;gap:4px;font-size:11px;color:#5f5e5a}
+.leg span{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+.arrow-col{text-align:center;color:#888780}
+.arrow-col svg{display:block;margin:0 auto}
+.arrow-col p{font-size:11px;color:#888780;margin-top:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="grid">
+    <div>
+      <p class="title">현재</p>
+      <div class="chart-wrap">
+        <canvas id="cA"></canvas>
+        <div class="center-label"><div><small>디젤 의존</small><strong style="color:#e24b4a">60%</strong></div></div>
+      </div>
+      <div class="legend">
+        <div class="leg"><span style="background:#64748b"></span>디젤 60%</div>
+        <div class="leg"><span style="background:#f59e0b"></span>태양광 40%</div>
+      </div>
+    </div>
+    <div class="arrow-col">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#888780" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M15 8l4 4-4 4"/></svg>
+      <p>파력<br>추가</p>
+    </div>
+    <div>
+      <p class="title">파력 발전 추가 후</p>
+      <div class="chart-wrap">
+        <canvas id="cB"></canvas>
+        <div class="center-label"><div><small>파력 신규</small><strong style="color:#1d9e75">+20%</strong></div></div>
+      </div>
+      <div class="legend">
+        <div class="leg"><span style="background:#64748b"></span>디젤 45%</div>
+        <div class="leg"><span style="background:#f59e0b"></span>태양광 35%</div>
+        <div class="leg"><span style="background:#1d9e75"></span>파력 20%</div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+const opts={responsive:true,maintainAspectRatio:false,cutout:'62%',plugins:{legend:{display:false}}};
+new Chart(document.getElementById('cA'),{type:'doughnut',data:{labels:['디젤','태양광'],datasets:[{data:[60,40],backgroundColor:['#64748b','#f59e0b'],borderColor:['#475569','#d97706'],borderWidth:1.5,hoverOffset:4}]},options:opts});
+new Chart(document.getElementById('cB'),{type:'doughnut',data:{labels:['디젤','태양광','파력'],datasets:[{data:[45,35,20],backgroundColor:['#64748b','#f59e0b','#1d9e75'],borderColor:['#475569','#d97706','#0f6e56'],borderWidth:1.5,hoverOffset:4}]},options:opts});
+</script>
+</body>
+</html>

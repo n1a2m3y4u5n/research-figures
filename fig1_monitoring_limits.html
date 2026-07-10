@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>독도 조사 체계 한계 | 인포그래픽</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans KR',sans-serif;background:#fff;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:32px}
+.wrap{width:720px}
+.label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#888780;margin-bottom:8px}
+.big{font-size:52px;font-weight:500;line-height:1}
+.sub{font-size:13px;color:#5f5e5a;margin-top:4px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.card{background:#f1efe8;border:0.5px solid #d3d1c7;border-radius:12px;padding:20px;display:flex;flex-direction:column;min-height:210px}
+.dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.line{flex:1;height:1px;background:#d3d1c7;position:relative}
+.tl-label{position:absolute;top:-10px;left:50%;transform:translateX(-50%);font-size:9px;color:#888780;white-space:nowrap}
+.bar-bg{background:#d3d1c7;border-radius:4px;height:8px;overflow:hidden;margin-top:auto;padding-top:0}
+.bar-fg{height:100%;background:#f59e0b;border-radius:4px 0 0 4px}
+.tl-row{display:flex;align-items:center}
+.tl-dates{display:flex;justify-content:space-between;margin-top:4px;font-size:10px;color:#888780}
+.month-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:2px}
+.month-cell{border-radius:2px;padding:3px 0;text-align:center;font-size:9px;font-weight:500}
+.legend{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.leg-item{display:flex;align-items:center;gap:3px;font-size:9px;color:#5f5e5a}
+.leg-dot{width:7px;height:7px;border-radius:1px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="grid">
+    <div class="card">
+      <p class="label">조사 빈도</p>
+      <div style="display:flex;align-items:baseline;gap:3px"><span class="big" style="color:#e24b4a">5</span><span style="font-size:26px;font-weight:500;color:#e24b4a">년</span></div>
+      <p class="sub">마다 한 번 정밀 조사</p>
+      <div style="margin-top:auto;padding-top:20px">
+        <div class="tl-row">
+          <div class="dot" style="background:#e24b4a"></div>
+          <div class="line"><span class="tl-label">5년</span></div>
+          <div class="dot" style="background:#e24b4a"></div>
+          <div class="line"><span class="tl-label">5년</span></div>
+          <div class="dot" style="border:1.5px solid #d3d1c7;background:transparent"></div>
+        </div>
+        <div class="tl-dates"><span>2015</span><span>2020</span><span>2025</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <p class="label">연간 접근 가능일</p>
+      <div style="display:flex;align-items:baseline;gap:3px"><span class="big" style="color:#f59e0b">55</span><span style="font-size:26px;font-weight:500;color:#f59e0b">일</span></div>
+      <p class="sub">365일 중 — 악천후 제외 시</p>
+      <div style="margin-top:auto;padding-top:20px">
+        <div class="bar-bg"><div class="bar-fg" style="width:15%"></div></div>
+        <div style="display:flex;justify-content:space-between;margin-top:5px;font-size:10px">
+          <span style="color:#f59e0b">출항 가능 55일</span>
+          <span style="color:#888780">310일 미탐지</span>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <p class="label">모니터링 공백</p>
+      <p style="font-size:24px;font-weight:500;color:#e24b4a;line-height:1.1">야간·동절기</p>
+      <p class="sub">데이터 수집 불가 구간</p>
+      <div style="margin-top:auto;padding-top:12px">
+        <div class="month-grid" id="mcal"></div>
+        <div class="legend">
+          <div class="leg-item"><div class="leg-dot" style="background:rgba(226,75,74,.35)"></div>동절기</div>
+          <div class="leg-item"><div class="leg-dot" style="background:rgba(245,158,11,.3)"></div>기상 불안정</div>
+          <div class="leg-item"><div class="leg-dot" style="background:rgba(29,158,117,.3)"></div>탐사 가능</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+const m=['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+const b=['rgba(226,75,74,.3)','rgba(226,75,74,.3)','rgba(245,158,11,.2)','rgba(29,158,117,.2)','rgba(29,158,117,.25)','rgba(29,158,117,.28)','rgba(29,158,117,.28)','rgba(29,158,117,.25)','rgba(29,158,117,.2)','rgba(245,158,11,.2)','rgba(226,75,74,.3)','rgba(226,75,74,.3)'];
+const c=['#a32d2d','#a32d2d','#854f0b','#0f6e56','#0f6e56','#085041','#085041','#0f6e56','#0f6e56','#854f0b','#a32d2d','#a32d2d'];
+document.getElementById('mcal').innerHTML=m.map((v,i)=>`<div class="month-cell" style="background:${b[i]};color:${c[i]}">${v}</div>`).join('');
+</script>
+</body>
+</html>
